@@ -13,11 +13,6 @@ class MeasureBase(BaseModel):
     thighs: Optional[int]
     calf: Optional[int]
     
-
-class MeasureCreate(MeasureBase):
-    pass
-
-
 class Measure(MeasureBase):
     id: int
     user_id: int
@@ -25,6 +20,9 @@ class Measure(MeasureBase):
     class Config:
         orm_mode = True
 
+class MeasureCreate(MeasureBase):
+    user_info: Measure
+    
 
 class UserBase(BaseModel):
     name: str
@@ -42,3 +40,8 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+        
+class UserEdit(UserBase):
+    name: Optional[str]
+    email: Optional[str]
+    birth_date: Optional[datetime]

@@ -1,12 +1,6 @@
 GET http://127.0.0.1:8000/hello/2021
 
-
-
-
-
-
-
-###
+### Adicionar novos usuários
 POST http://127.0.0.1:8082/users/
 Content-Type: application/json
 
@@ -16,66 +10,45 @@ Content-Type: application/json
     "password": "12345"
 }
 
-
-
-
-
-
-
-
-###
+### Buscar lista de usuários 
 GET http://127.0.0.1:8082/users/
 
 
-
-
-
-
-
-###
+### Buscar usuário por id
 GET http://127.0.0.1:8082/users/1
 
 
-###
+### Editar um usuário
 PUT http://127.0.0.1:8082/users/1
 Content-Type: application/json
 
 {
-    
+        "name": "Mario IIx",
+        "email": "mhadaniya2ix@email.com"
 }
 
+### Apagar um usuário
+DELETE http://127.0.0.1:8082/users/8
 
 
+### Buscar lista de medidas
+GET http://127.0.0.1:8082/measures/
 
+### Buscar medidas de um usuário
+GET http://127.0.0.1:8082/users/1/measures/
 
-
-
-
-
-###
-POST http://127.0.0.1:8000/users
+### Adicionar medidas
+POST http://127.0.0.1:8082/users/1/measures/
 Content-Type: application/json
 
 {
-    "name": "Ricardo Silva",
-    "email": "ricardo.silva@email.com"
+    "height": 165,
+    "weight": 78,
+    "neck": 38,
+    "chest": 123,
+    "biceps": 34,
+    "hips": 104,
+    "waist": 88,
+    "thighs": 58,
+    "calf": 35
 }
-
-
-
-
-
-
-
-
-###
-PUT http://127.0.0.1:8000/users/8
-Content-Type: application/json
-
-{
-    "name": "Nome",
-    "price": 1
-}
-
-### 
-DELETE http://127.0.0.1:8000/users/8
