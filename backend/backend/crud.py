@@ -52,4 +52,4 @@ def create_user_measure(db: Session, measure: schemas.MeasureBase, user_id: int)
     return db_measure
 
 def get_user_measures(db: Session, user_id: int):
-    return db.query(models.Measure).filter(models.Measure.user_id == user_id).first()
+    return db.query(models.Measure).filter(models.Measure.user_id == user_id).all()
