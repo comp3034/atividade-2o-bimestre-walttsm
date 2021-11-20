@@ -25,20 +25,22 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def edit_user(db: Session, user_id: int, values: schemas.UserEdit):
     print(values)
-    user = get_user(db, user_id)
-    if user:
+    db_user_to_update = get_user(db, user_id)
+    if db_user_to_update:
         if values.name != None:
-            user.name = values.name
+            db_user_to_update.name = values.name
         
         if values.email != None:
-            user.email = values.email
+            db_user_to_update.email = values.email
             
         if values.birth_date != None:
-            user.birth_date = values.birth_date
-                
-        db.query(models.User).filter(models.User.id == user_id).update(user)
+            db_user_to_update.birth_date = values.birth_date
     
-    return user
+        db.add(db_user_to_update)
+        db.commit()
+        db.refresh(db_user_to_update)
+        
+    return db_user_to_update
 
 def get_measures(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Measure).offset(skip).limit(limit).all()
