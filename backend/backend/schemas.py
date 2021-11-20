@@ -36,7 +36,8 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    birth_date: Optional[datetime]    
+    birth_date: Optional[datetime]
+    measures: List[Measure] = []
 
     class Config:
         orm_mode = True

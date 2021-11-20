@@ -27,29 +27,29 @@ def edit_user(db: Session, user_id: int, values: schemas.UserEdit):
     print(values)
     user = get_user(db, user_id)
     if user:
-        if values.name == None:
-            values.name == user.name
+        if values.name != None:
+            user.name = values.name
         
-        if values.email == None:
-            values.email == user.email
+        if values.email != None:
+            user.email = values.email
             
-        if values.birth_date == None:
-            if user.birth_date:
-                values.birth_date = user.birth_date
+        if values.birth_date != None:
+            user.birth_date = values.birth_date
                 
-        db.query(models.User).filter(user.id == user_id).update(**values.dict())
+        db.query(models.User).filter(models.User.id == user_id).update(user)
     
-    db.commit()
-    db.refresh(user)
     return user
 
 def get_measures(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Measure).offset(skip).limit(limit).all()
 
 def create_user_measure(db: Session, measure: schemas.MeasureBase, user_id: int):
-    db_measure = models.Measure(**measure.dict(), owner_id=user_id)
+    db_measure = models.Measure(**measure.dict(), user_id=user_id)
     print(db_measure)
     db.add(db_measure)
     db.commit()
     db.refresh(db_measure)
     return db_measure
+
+def get_user_measures(db: Session, user_id: int):
+    return db.query(models.Measure).filter(models.Measure.user_id == user_id).first()
